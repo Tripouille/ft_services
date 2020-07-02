@@ -1,10 +1,4 @@
 server {
-	listen  default_server;
-	listen [::]: default_server;
-	return 301 https://localhost$request_uri;
-}
-
-server {
 	listen 80 default_server;
 	listen [::]:80 default_server;
 	return 301 https://localhost$request_uri;

@@ -13,7 +13,12 @@ echo "${GREEN}Configuring MetalLB...${NC}"
 sed "s/IPADDRESSES/"$IP.1-$IP.254"/" srcs/metallb/configmap_base.yaml > srcs/metallb/configmap.yaml
 kubectl create -f srcs/metallb/configmap.yaml
 echo "${GREEN}Creating nginx server...${NC}"
-#kubectl create deploy nginx --image=nginx
-#kubectl apply -f
-#kubectl expose deploy nginx --port 80 --type LoadBalancer
+echo "${GREEN}Building nginx image...${NC}"
+#PORT=$(minikube service --url nginx | cut -d ':' -f 3)
+#sed s/PORT/$PORT/ srcs/nginx/default_base > srcs/nginx/default
+docker build -t mynginx -f srcs/nginx/Dockerfile srcs/nginx/
+
+kubectl apply -f srcs/nginx/nginx.yaml
+kubectl expose deploy nginx --port 80 --type LoadBalancer
+#kubectl create deploy nginx --image=mynginx
 echo "${GREEN}Finished !${NC}"
