@@ -6,24 +6,22 @@
 #    By: aalleman <aalleman@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/07/02 19:17:36 by aalleman          #+#    #+#              #
-#    Updated: 2020/07/02 20:14:58 by aalleman         ###   ########lyon.fr    #
+#    Updated: 2020/07/02 22:32:16 by aalleman         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
 FROM alpine
-#ARG DEBIAN_FRONTEND=noninteractive
 
-#RUN apt-get update
-#RUN apt-get -y upgrade
 RUN apk -U upgrade --no-cache
-RUN apk add openrc --no-cache
-RUN rc-update add openrc
+
+#Add index
+COPY index.html /var/www/html/index.html
 
 #Install nginx
-#RUN apt-get install -y nginx
+RUN mkdir -p /run/nginx
 RUN apk add nginx
-COPY default /etc/nginx/sites-available/default
-#COPY srcs/nginx/autoindex.sh .
+#COPY default /etc/nginx/sites-available/default
+COPY default /etc/nginx/conf.d/default.conf
 EXPOSE 80
 
 #Setup ssl
@@ -32,6 +30,5 @@ COPY localhost.key /etc/ssl/private/
 EXPOSE 443
 
 #COPY and launch run.sh.
-RUN rc-update add nginx
-COPY run.sh .
-CMD ["sh", "run.sh"];
+ENTRYPOINT ["nginx"]
+CMD ["-g", "daemon off;"]
