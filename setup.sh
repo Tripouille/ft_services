@@ -29,9 +29,16 @@ kubectl create -f -
 echo "${GREEN}Deploying services:${NC}"
 eval $(minikube docker-env)
 
-echo "${GREEN}--> Creating nginx server:${NC}"
-echo "${GREEN}----> Building nginx image:${NC}"
-docker build -t mynginx -f srcs/nginx/Dockerfile srcs/nginx/
-echo "${GREEN}----> Applying nginx yaml:${NC}"
-kubectl apply -f srcs/nginx/nginx.yaml
+#echo "${GREEN}--> Creating nginx server:${NC}"
+#echo "${GREEN}----> Building nginx image:${NC}"
+#docker build -t mynginx -f srcs/nginx/Dockerfile srcs/nginx/
+#echo "${GREEN}----> Applying nginx yaml:${NC}"
+#kubectl apply -f srcs/nginx/nginx.yaml
+
+echo "${GREEN}--> Creating ftps server:${NC}"
+echo "${GREEN}----> Building ftps image:${NC}"
+docker build -t myftps -f srcs/ftps/Dockerfile srcs/ftps/
+echo "${GREEN}----> Applying ftps yaml:${NC}"
+kubectl apply -f srcs/ftps/ftps.yaml
+
 echo "${GREEN}Finished !${NC}"
