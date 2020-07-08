@@ -15,7 +15,6 @@ spec:
   - name: ftp-data
     port: 1024
     targetPort: 1024
-
 ---
 apiVersion: apps/v1
 kind: Deployment
