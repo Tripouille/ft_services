@@ -31,3 +31,37 @@ spec:
       - name: mysql
         image: mymysql
         imagePullPolicy: Never
+        volumeMounts:
+          - mountPath: "/var/lib/mysql"
+            name: mysql
+      volumes:
+      - name: mysql
+        persistentVolumeClaim:
+          claimName: mysql
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mysql
+  labels:
+    type: local
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 100Mi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/var/lib/mysql/"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql
+spec:
+  storageClassName: manual
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi
