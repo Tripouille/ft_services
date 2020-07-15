@@ -61,13 +61,13 @@ docker build -t myphpmyadmin -f srcs/phpmyadmin/Dockerfile srcs/phpmyadmin/
 echo "${GREEN}----> Applying phpmyadmin yaml:${NC}"
 kubectl apply -f srcs/phpmyadmin/phpmyadmin.yaml
 
-#WPIP=$IP.$((++LAST))
-#sed -ri s/"([0-9]*\.){3}[0-9]*"/$MYSQLIP/ srcs/wordpress/wp-config.php
-#echo "${GREEN}--> Creating wordpress server:${NC}"
-#echo "${GREEN}----> Building wordpress image:${NC}"
-#docker build -t mywordpress -f srcs/wordpress/Dockerfile srcs/wordpress/
-#echo "${GREEN}----> Applying wordpress yaml:${NC}"
-#kubectl apply -f srcs/wordpress/wordpress.yaml
+WPIP=$IP.$((++LAST))
+sed -ri s/"([0-9]*\.){3}[0-9]*"/$MYSQLIP/ srcs/wordpress/wp-config.php
+echo "${GREEN}--> Creating wordpress server:${NC}"
+echo "${GREEN}----> Building wordpress image:${NC}"
+docker build -t mywordpress -f srcs/wordpress/Dockerfile srcs/wordpress/
+echo "${GREEN}----> Applying wordpress yaml:${NC}"
+kubectl apply -f srcs/wordpress/wordpress.yaml
 
 echo "${GREEN}Actual Services Available:${NC}"
 echo "${GREEN}NGINX: ${YELLOW}$NGINXIP${NC}"

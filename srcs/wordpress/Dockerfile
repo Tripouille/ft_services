@@ -1,5 +1,6 @@
 FROM alpine
 
+USER root
 EXPOSE 5050
 RUN apk -U upgrade --no-cache \
 && apk add openrc --no-cache && mkdir -p /run/openrc/ && touch /run/openrc/softlevel \
@@ -8,6 +9,7 @@ RUN apk -U upgrade --no-cache \
 && apk add php7-xmlrpc php7-posix php7-mcrypt php7-gettext php7-ldap php7-ctype 
 COPY lighttpd.conf /etc/lighttpd/ 
 RUN sed -i s/php-cgi/php-cgi7/ /etc/lighttpd/mod_fastcgi.conf
+
 RUN wget https://fr.wordpress.org/latest-fr_FR.tar.gz -O wp.tar.gz \
 && tar -xf wp.tar.gz && rm wp.tar.gz
 COPY wp-config.php /wordpress/

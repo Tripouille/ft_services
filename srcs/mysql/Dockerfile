@@ -5,7 +5,7 @@ USER root
 RUN apk -U upgrade --no-cache \
 && apk add openrc --no-cache && mkdir -p /run/openrc/ && touch /run/openrc/softlevel \
 && apk add mysql mysql-client
-COPY pma.sql /
+COPY wp.sql /
 COPY setup.sql /
 COPY my.cnf /etc/
 COPY start.sh /
