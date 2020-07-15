@@ -5,8 +5,9 @@ NC='\033[0m'
 
 #Reset
 sudo pkill nginx
+sudo pkill mysql
 docker rm -f $(docker ps -aq)
-docker rmi $(docker images -aq)
+#docker rmi $(docker images -aq)
 minikube delete
 rm -rf ~/.minikube
 

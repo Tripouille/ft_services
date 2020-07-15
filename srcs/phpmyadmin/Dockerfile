@@ -13,6 +13,7 @@ RUN sed -i s/php-cgi/php-cgi7/ /etc/lighttpd/mod_fastcgi.conf
 COPY config.inc.php /usr/share/webapps/phpmyadmin
 COPY config.inc.php /etc/phpmyadmin/
 RUN chmod -R 755 /usr/share/webapps/phpmyadmin
+RUN mkdir -p /usr/share/webapps/phpmyadmin/tmp/
 COPY start.sh /
 
 ENTRYPOINT ["sh", "start.sh"]
