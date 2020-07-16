@@ -7,7 +7,7 @@ NC='\033[0m'
 sudo pkill nginx
 sudo pkill mysql
 docker rm -f $(docker ps -aq)
-#docker rmi $(docker images -aq)
+docker rmi $(docker images -aq)
 minikube delete
 rm -rf ~/.minikube
 
@@ -43,31 +43,47 @@ eval $(minikube docker-env)
 #echo "${GREEN}--> Creating ftps server:${NC}"
 #echo "${GREEN}----> Building ftps image:${NC}"
 #docker build -t myftps -f srcs/ftps/Dockerfile srcs/ftps/
-#echo "${GREEN}----> Applying ftps yaml:${NC}"
-#kubectl apply -f srcs/ftps/ftps.yaml
+##echo "${GREEN}----> Applying ftps yaml:${NC}"
+##kubectl apply -f srcs/ftps/ftps.yaml
+#
+#MYSQLIP=$IP.$((++LAST))
+#echo "${GREEN}--> Creating mysql server:${NC}"
+#echo "${GREEN}----> Building mysql image:${NC}"
+#docker build -t mymysql -f srcs/mysql/Dockerfile srcs/mysql/
+#echo "${GREEN}----> Applying mysql yaml:${NC}"
+#kubectl apply -f srcs/mysql/mysql.yaml
+#
+#PHPMYADMINIP=$IP.$((++LAST))
+#sed -ri s/"([0-9]*\.){3}[0-9]*"/$MYSQLIP/ srcs/phpmyadmin/config.inc.php
+#echo "${GREEN}--> Creating phpmyadmin server:${NC}"
+#echo "${GREEN}----> Building phpmyadmin image:${NC}"
+#docker build -t myphpmyadmin -f srcs/phpmyadmin/Dockerfile srcs/phpmyadmin/
+#echo "${GREEN}----> Applying phpmyadmin yaml:${NC}"
+#kubectl apply -f srcs/phpmyadmin/phpmyadmin.yaml
+#
+#WPIP=$IP.$((++LAST))
+#sed -ri s/"([0-9]*\.){3}[0-9]*"/$MYSQLIP/ srcs/wordpress/wp-config.php
+#echo "${GREEN}--> Creating wordpress server:${NC}"
+#echo "${GREEN}----> Building wordpress image:${NC}"
+#docker build -t mywordpress -f srcs/wordpress/Dockerfile srcs/wordpress/
+#echo "${GREEN}----> Applying wordpress yaml:${NC}"
+#kubectl apply -f srcs/wordpress/wordpress.yaml
+#
+INFLUXDBIP=$IP.$((++LAST))
+sed -ri s/"([0-9]*\.){3}[0-9]*"/$INFLUXDBIP/ srcs/influxdb/telegraf.conf
+sed -ri s/"([0-9]*\.){3}[0-9]*"/$INFLUXDBIP/ srcs/influxdb/influxdb.conf
+echo "${GREEN}--> Creating influxdb server:${NC}"
+echo "${GREEN}----> Building influxdb image:${NC}"
+docker build -t myinfluxdb -f srcs/influxdb/Dockerfile srcs/influxdb/
+echo "${GREEN}----> Applying  yaml:${NC}"
+kubectl apply -f srcs/influxdb/influxdb.yaml
 
-MYSQLIP=$IP.$((++LAST))
-echo "${GREEN}--> Creating mysql server:${NC}"
-echo "${GREEN}----> Building mysql image:${NC}"
-docker build -t mymysql -f srcs/mysql/Dockerfile srcs/mysql/
-echo "${GREEN}----> Applying mysql yaml:${NC}"
-kubectl apply -f srcs/mysql/mysql.yaml
-
-PHPMYADMINIP=$IP.$((++LAST))
-sed -ri s/"([0-9]*\.){3}[0-9]*"/$MYSQLIP/ srcs/phpmyadmin/config.inc.php
-echo "${GREEN}--> Creating phpmyadmin server:${NC}"
-echo "${GREEN}----> Building phpmyadmin image:${NC}"
-docker build -t myphpmyadmin -f srcs/phpmyadmin/Dockerfile srcs/phpmyadmin/
-echo "${GREEN}----> Applying phpmyadmin yaml:${NC}"
-kubectl apply -f srcs/phpmyadmin/phpmyadmin.yaml
-
-WPIP=$IP.$((++LAST))
-sed -ri s/"([0-9]*\.){3}[0-9]*"/$MYSQLIP/ srcs/wordpress/wp-config.php
-echo "${GREEN}--> Creating wordpress server:${NC}"
-echo "${GREEN}----> Building wordpress image:${NC}"
-docker build -t mywordpress -f srcs/wordpress/Dockerfile srcs/wordpress/
-echo "${GREEN}----> Applying wordpress yaml:${NC}"
-kubectl apply -f srcs/wordpress/wordpress.yaml
+GRAFANAIP=$IP.$((++LAST))
+echo "${GREEN}--> Creating grafana server:${NC}"
+echo "${GREEN}----> Building grafana image:${NC}"
+docker build -t mygrafana -f srcs/grafana/Dockerfile srcs/grafana/
+echo "${GREEN}----> Applying  yaml:${NC}"
+kubectl apply -f srcs/grafana/grafana.yaml
 
 echo "${GREEN}Actual Services Available:${NC}"
 echo "${GREEN}NGINX: ${YELLOW}$NGINXIP${NC}"
@@ -75,3 +91,5 @@ echo "${GREEN}FTPS: ${YELLOW}$FTPSIP${NC}"
 echo "${GREEN}MYSQL: ${YELLOW}$MYSQLIP${NC}"
 echo "${GREEN}PHPMYADMIN: ${YELLOW}$PHPMYADMINIP${NC}"
 echo "${GREEN}WORDPRESS: ${YELLOW}$WPIP${NC}"
+echo "${GREEN}INFLUXDB: ${YELLOW}$INFLUXDBIP${NC}"
+echo "${GREEN}GRAFANA: ${YELLOW}$GRAFANAIP${NC}"
