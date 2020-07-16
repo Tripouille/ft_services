@@ -70,7 +70,6 @@ eval $(minikube docker-env)
 #kubectl apply -f srcs/wordpress/wordpress.yaml
 #
 INFLUXDBIP=$IP.$((++LAST))
-#sed -ri s/"([0-9]*\.){3}[0-9]*"/$INFLUXDBIP/ srcs/influxdb/telegraf.conf
 sed -ri s/"([0-9]*\.){3}[0-9]*"/$INFLUXDBIP/ srcs/influxdb/influxdb.conf
 echo "${GREEN}--> Creating influxdb server:${NC}"
 echo "${GREEN}----> Building influxdb image:${NC}"
@@ -79,6 +78,8 @@ echo "${GREEN}----> Applying  yaml:${NC}"
 kubectl apply -f srcs/influxdb/influxdb.yaml
 
 GRAFANAIP=$IP.$((++LAST))
+sed -ri s/"([0-9]*\.){3}[0-9]*"/$INFLUXDBIP/ srcs/grafana/telegraf.conf
+sed -ri s/"([0-9]*\.){3}[0-9]*"/$INFLUXDBIP/ srcs/grafana/datasources.yml
 echo "${GREEN}--> Creating grafana server:${NC}"
 echo "${GREEN}----> Building grafana image:${NC}"
 docker build -t mygrafana -f srcs/grafana/Dockerfile srcs/grafana/

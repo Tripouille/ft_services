@@ -9,6 +9,7 @@ RUN wget https://dl.influxdata.com/telegraf/releases/telegraf-1.14.5_linux_amd64
 && tar xf telegraf-1.14.5_linux_amd64.tar.gz && rm telegraf-1.14.5_linux_amd64.tar.gz \
 && cp -R /telegraf/etc/telegraf /etc
 COPY telegraf.conf /etc/telegraf/
+
 COPY influxdb.conf /etc/
 COPY start.sh /
 
