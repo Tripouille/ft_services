@@ -70,7 +70,7 @@ eval $(minikube docker-env)
 #kubectl apply -f srcs/wordpress/wordpress.yaml
 #
 INFLUXDBIP=$IP.$((++LAST))
-sed -ri s/"([0-9]*\.){3}[0-9]*"/$INFLUXDBIP/ srcs/influxdb/telegraf.conf
+#sed -ri s/"([0-9]*\.){3}[0-9]*"/$INFLUXDBIP/ srcs/influxdb/telegraf.conf
 sed -ri s/"([0-9]*\.){3}[0-9]*"/$INFLUXDBIP/ srcs/influxdb/influxdb.conf
 echo "${GREEN}--> Creating influxdb server:${NC}"
 echo "${GREEN}----> Building influxdb image:${NC}"
