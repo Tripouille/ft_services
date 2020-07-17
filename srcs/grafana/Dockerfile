@@ -13,7 +13,6 @@ COPY telegraf.conf /etc/telegraf/
 RUN wget https://dl.grafana.com/enterprise/release/grafana-enterprise-7.0.6.linux-amd64.tar.gz \
 && tar -zxf grafana-enterprise-7.0.6.linux-amd64.tar.gz && rm grafana-enterprise-7.0.6.linux-amd64.tar.gz
 COPY datasources.yml /grafana-7.0.6/conf/provisioning/datasources/
-COPY defaults.ini /grafana-7.0.6/conf/
 COPY start.sh /
 
 ENTRYPOINT ["sh", "start.sh"]

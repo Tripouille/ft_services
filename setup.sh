@@ -31,28 +31,21 @@ kubectl create -f -
 echo "${GREEN}Deploying services:${NC}"
 eval $(minikube docker-env)
 
-#NGINXIP=$IP.$((++LAST))
-#echo "${GREEN}--> Creating nginx server:${NC}"
-#echo "${GREEN}----> Building nginx image:${NC}"
-#docker build -t mynginx -f srcs/nginx/Dockerfile srcs/nginx/
-#echo "${GREEN}----> Applying nginx yaml:${NC}"
-#kubectl apply -f srcs/nginx/nginx.yaml
-#
-#FTPSIP=$IP.$((++LAST))
-#sed -ri s/"pasv_address=.*"/pasv_address=$FTPSIP/ srcs/ftps/vsftpd.conf
-#echo "${GREEN}--> Creating ftps server:${NC}"
-#echo "${GREEN}----> Building ftps image:${NC}"
-#docker build -t myftps -f srcs/ftps/Dockerfile srcs/ftps/
-##echo "${GREEN}----> Applying ftps yaml:${NC}"
-##kubectl apply -f srcs/ftps/ftps.yaml
-#
-#MYSQLIP=$IP.$((++LAST))
-#echo "${GREEN}--> Creating mysql server:${NC}"
-#echo "${GREEN}----> Building mysql image:${NC}"
-#docker build -t mymysql -f srcs/mysql/Dockerfile srcs/mysql/
-#echo "${GREEN}----> Applying mysql yaml:${NC}"
-#kubectl apply -f srcs/mysql/mysql.yaml
-#
+INFLUXDBIP=$IP.$((++LAST))
+sed -ri s/"([0-9]*\.){3}[0-9]*"/$INFLUXDBIP/ srcs/influxdb/influxdb.conf
+echo "${GREEN}--> Creating influxdb server:${NC}"
+echo "${GREEN}----> Building influxdb image:${NC}"
+docker build -t myinfluxdb -f srcs/influxdb/Dockerfile srcs/influxdb/
+echo "${GREEN}----> Applying  yaml:${NC}"
+kubectl apply -f srcs/influxdb/influxdb.yaml
+
+MYSQLIP=$IP.$((++LAST))
+echo "${GREEN}--> Creating mysql server:${NC}"
+echo "${GREEN}----> Building mysql image:${NC}"
+docker build -t mymysql -f srcs/mysql/Dockerfile srcs/mysql/
+echo "${GREEN}----> Applying mysql yaml:${NC}"
+kubectl apply -f srcs/mysql/mysql.yaml
+
 #PHPMYADMINIP=$IP.$((++LAST))
 #sed -ri s/"([0-9]*\.){3}[0-9]*"/$MYSQLIP/ srcs/phpmyadmin/config.inc.php
 #echo "${GREEN}--> Creating phpmyadmin server:${NC}"
@@ -60,7 +53,22 @@ eval $(minikube docker-env)
 #docker build -t myphpmyadmin -f srcs/phpmyadmin/Dockerfile srcs/phpmyadmin/
 #echo "${GREEN}----> Applying phpmyadmin yaml:${NC}"
 #kubectl apply -f srcs/phpmyadmin/phpmyadmin.yaml
-#
+
+#NGINXIP=$IP.$((++LAST))
+#echo "${GREEN}--> Creating nginx server:${NC}"
+#echo "${GREEN}----> Building nginx image:${NC}"
+#docker build -t mynginx -f srcs/nginx/Dockerfile srcs/nginx/
+#echo "${GREEN}----> Applying nginx yaml:${NC}"
+#kubectl apply -f srcs/nginx/nginx.yaml
+
+#FTPSIP=$IP.$((++LAST))
+#sed -ri s/"pasv_address=.*"/pasv_address=$FTPSIP/ srcs/ftps/vsftpd.conf
+#echo "${GREEN}--> Creating ftps server:${NC}"
+#echo "${GREEN}----> Building ftps image:${NC}"
+#docker build -t myftps -f srcs/ftps/Dockerfile srcs/ftps/
+##echo "${GREEN}----> Applying ftps yaml:${NC}"
+##kubectl apply -f srcs/ftps/ftps.yaml
+
 #WPIP=$IP.$((++LAST))
 #sed -ri s/"([0-9]*\.){3}[0-9]*"/$MYSQLIP/ srcs/wordpress/wp-config.php
 #echo "${GREEN}--> Creating wordpress server:${NC}"
@@ -69,13 +77,6 @@ eval $(minikube docker-env)
 #echo "${GREEN}----> Applying wordpress yaml:${NC}"
 #kubectl apply -f srcs/wordpress/wordpress.yaml
 #
-INFLUXDBIP=$IP.$((++LAST))
-sed -ri s/"([0-9]*\.){3}[0-9]*"/$INFLUXDBIP/ srcs/influxdb/influxdb.conf
-echo "${GREEN}--> Creating influxdb server:${NC}"
-echo "${GREEN}----> Building influxdb image:${NC}"
-docker build -t myinfluxdb -f srcs/influxdb/Dockerfile srcs/influxdb/
-echo "${GREEN}----> Applying  yaml:${NC}"
-kubectl apply -f srcs/influxdb/influxdb.yaml
 
 GRAFANAIP=$IP.$((++LAST))
 sed -ri s/"([0-9]*\.){3}[0-9]*"/$INFLUXDBIP/ srcs/grafana/telegraf.conf
@@ -87,10 +88,10 @@ echo "${GREEN}----> Applying  yaml:${NC}"
 kubectl apply -f srcs/grafana/grafana.yaml
 
 echo "${GREEN}Actual Services Available:${NC}"
-echo "${GREEN}NGINX: ${YELLOW}$NGINXIP${NC}"
-echo "${GREEN}FTPS: ${YELLOW}$FTPSIP${NC}"
+echo "${GREEN}INFLUXDB: ${YELLOW}$INFLUXDBIP${NC}"
 echo "${GREEN}MYSQL: ${YELLOW}$MYSQLIP${NC}"
 echo "${GREEN}PHPMYADMIN: ${YELLOW}$PHPMYADMINIP${NC}"
+echo "${GREEN}NGINX: ${YELLOW}$NGINXIP${NC}"
+echo "${GREEN}FTPS: ${YELLOW}$FTPSIP${NC}"
 echo "${GREEN}WORDPRESS: ${YELLOW}$WPIP${NC}"
-echo "${GREEN}INFLUXDB: ${YELLOW}$INFLUXDBIP${NC}"
 echo "${GREEN}GRAFANA: ${YELLOW}$GRAFANAIP${NC}"

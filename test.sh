@@ -9,5 +9,5 @@ docker build -t iinfluxdb -f srcs/influxdb/Dockerfile srcs/influxdb/
 docker run -d --name influxdb -p 8086:8086 -p 8088:8088 iinfluxdb
 docker exec -ti influxdb /bin/sh
 #docker exec -ti grafana /bin/sh
-
-
+  #username = "admin"
+  #password = "admin"
