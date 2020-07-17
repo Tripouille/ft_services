@@ -41,7 +41,7 @@ echo "${GREEN}Deploying services:${NC}"
 eval $(minikube docker-env)
 
 INFLUXDBIP=$IP.$((++LAST))
-sed -ri s/"([0-9]*\.){3}[0-9]*"/$INFLUXDBIP/ srcs/influxdb/influxdb.conf
+#sed -ri s/"([0-9]*\.){3}[0-9]*"/$INFLUXDBIP/ srcs/influxdb/influxdb.conf
 echo "${GREEN}--> Creating influxdb server:${NC}"
 echo "${GREEN}----> Building influxdb image:${NC}"
 docker build -t myinfluxdb -f srcs/influxdb/Dockerfile srcs/influxdb/

@@ -1,6 +1,6 @@
 FROM alpine
 
-EXPOSE 8086 8088
+EXPOSE 8086
 RUN apk -U upgrade --no-cache \
 && apk add openrc --no-cache && mkdir -p /run/openrc/ && touch /run/openrc/softlevel \
 && apk add influxdb gcompat libc6-compat
