@@ -12,6 +12,7 @@ COPY telegraf.conf /etc/telegraf/
 
 COPY setup.sql /
 COPY wp.sql /
+COPY phpmyadmin.sql /
 COPY my.cnf /etc/
 COPY start.sh /
 

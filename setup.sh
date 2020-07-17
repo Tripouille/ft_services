@@ -3,6 +3,15 @@ GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 NC='\033[0m'
 
+#Checking minikube version
+if [ $(minikube version | head -n 1 | cut -d ' ' -f 3) != "v1.12.0" ]
+then
+	echo "${GREEN}Upgrading minikube version to v1.12.0${NC}"
+	sudo curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+	sudo install minikube-linux-amd64 /usr/local/bin/minikube
+	sudo rm minikube-linux-amd64
+fi
+
 #Reset
 sudo pkill nginx
 sudo pkill mysql
@@ -40,43 +49,48 @@ echo "${GREEN}----> Applying  yaml:${NC}"
 kubectl apply -f srcs/influxdb/influxdb.yaml
 
 MYSQLIP=$IP.$((++LAST))
+sed -ri s/"([0-9]*\.){3}[0-9]*"/$INFLUXDBIP/ srcs/mysql/telegraf.conf
 echo "${GREEN}--> Creating mysql server:${NC}"
 echo "${GREEN}----> Building mysql image:${NC}"
 docker build -t mymysql -f srcs/mysql/Dockerfile srcs/mysql/
 echo "${GREEN}----> Applying mysql yaml:${NC}"
 kubectl apply -f srcs/mysql/mysql.yaml
 
-#PHPMYADMINIP=$IP.$((++LAST))
-#sed -ri s/"([0-9]*\.){3}[0-9]*"/$MYSQLIP/ srcs/phpmyadmin/config.inc.php
-#echo "${GREEN}--> Creating phpmyadmin server:${NC}"
-#echo "${GREEN}----> Building phpmyadmin image:${NC}"
-#docker build -t myphpmyadmin -f srcs/phpmyadmin/Dockerfile srcs/phpmyadmin/
-#echo "${GREEN}----> Applying phpmyadmin yaml:${NC}"
-#kubectl apply -f srcs/phpmyadmin/phpmyadmin.yaml
+PHPMYADMINIP=$IP.$((++LAST))
+sed -ri s/"([0-9]*\.){3}[0-9]*"/$INFLUXDBIP/ srcs/phpmyadmin/telegraf.conf
+sed -ri s/"([0-9]*\.){3}[0-9]*"/$MYSQLIP/ srcs/phpmyadmin/config.inc.php
+echo "${GREEN}--> Creating phpmyadmin server:${NC}"
+echo "${GREEN}----> Building phpmyadmin image:${NC}"
+docker build -t myphpmyadmin -f srcs/phpmyadmin/Dockerfile srcs/phpmyadmin/
+echo "${GREEN}----> Applying phpmyadmin yaml:${NC}"
+kubectl apply -f srcs/phpmyadmin/phpmyadmin.yaml
 
-#NGINXIP=$IP.$((++LAST))
-#echo "${GREEN}--> Creating nginx server:${NC}"
-#echo "${GREEN}----> Building nginx image:${NC}"
-#docker build -t mynginx -f srcs/nginx/Dockerfile srcs/nginx/
-#echo "${GREEN}----> Applying nginx yaml:${NC}"
-#kubectl apply -f srcs/nginx/nginx.yaml
+NGINXIP=$IP.$((++LAST))
+sed -ri s/"([0-9]*\.){3}[0-9]*"/$INFLUXDBIP/ srcs/nginx/telegraf.conf
+echo "${GREEN}--> Creating nginx server:${NC}"
+echo "${GREEN}----> Building nginx image:${NC}"
+docker build -t mynginx -f srcs/nginx/Dockerfile srcs/nginx/
+echo "${GREEN}----> Applying nginx yaml:${NC}"
+kubectl apply -f srcs/nginx/nginx.yaml
 
-#FTPSIP=$IP.$((++LAST))
-#sed -ri s/"pasv_address=.*"/pasv_address=$FTPSIP/ srcs/ftps/vsftpd.conf
-#echo "${GREEN}--> Creating ftps server:${NC}"
-#echo "${GREEN}----> Building ftps image:${NC}"
-#docker build -t myftps -f srcs/ftps/Dockerfile srcs/ftps/
-##echo "${GREEN}----> Applying ftps yaml:${NC}"
-##kubectl apply -f srcs/ftps/ftps.yaml
+FTPSIP=$IP.$((++LAST))
+sed -ri s/"([0-9]*\.){3}[0-9]*"/$INFLUXDBIP/ srcs/ftps/telegraf.conf
+sed -ri s/"pasv_address=.*"/pasv_address=$FTPSIP/ srcs/ftps/vsftpd.conf
+echo "${GREEN}--> Creating ftps server:${NC}"
+echo "${GREEN}----> Building ftps image:${NC}"
+docker build -t myftps -f srcs/ftps/Dockerfile srcs/ftps/
+echo "${GREEN}----> Applying ftps yaml:${NC}"
+kubectl apply -f srcs/ftps/ftps.yaml
 
-#WPIP=$IP.$((++LAST))
-#sed -ri s/"([0-9]*\.){3}[0-9]*"/$MYSQLIP/ srcs/wordpress/wp-config.php
-#echo "${GREEN}--> Creating wordpress server:${NC}"
-#echo "${GREEN}----> Building wordpress image:${NC}"
-#docker build -t mywordpress -f srcs/wordpress/Dockerfile srcs/wordpress/
-#echo "${GREEN}----> Applying wordpress yaml:${NC}"
-#kubectl apply -f srcs/wordpress/wordpress.yaml
-#
+WPIP=$IP.$((++LAST))
+sed -ri s/"([0-9]*\.){3}[0-9]*"/$INFLUXDBIP/ srcs/wordpress/telegraf.conf
+sed -ri s/"([0-9]*\.){3}[0-9]*"/$MYSQLIP/ srcs/wordpress/wp-config.php
+echo "${GREEN}--> Creating wordpress server:${NC}"
+echo "${GREEN}----> Building wordpress image:${NC}"
+docker build -t mywordpress -f srcs/wordpress/Dockerfile srcs/wordpress/
+echo "${GREEN}----> Applying wordpress yaml:${NC}"
+kubectl apply -f srcs/wordpress/wordpress.yaml
+
 
 GRAFANAIP=$IP.$((++LAST))
 sed -ri s/"([0-9]*\.){3}[0-9]*"/$INFLUXDBIP/ srcs/grafana/telegraf.conf
@@ -87,11 +101,11 @@ docker build -t mygrafana -f srcs/grafana/Dockerfile srcs/grafana/
 echo "${GREEN}----> Applying  yaml:${NC}"
 kubectl apply -f srcs/grafana/grafana.yaml
 
-echo "${GREEN}Actual Services Available:${NC}"
-echo "${GREEN}INFLUXDB: ${YELLOW}$INFLUXDBIP${NC}"
-echo "${GREEN}MYSQL: ${YELLOW}$MYSQLIP${NC}"
-echo "${GREEN}PHPMYADMIN: ${YELLOW}$PHPMYADMINIP${NC}"
-echo "${GREEN}NGINX: ${YELLOW}$NGINXIP${NC}"
-echo "${GREEN}FTPS: ${YELLOW}$FTPSIP${NC}"
-echo "${GREEN}WORDPRESS: ${YELLOW}$WPIP${NC}"
-echo "${GREEN}GRAFANA: ${YELLOW}$GRAFANAIP${NC}"
+echo "${GREEN}Services Available:${NC}"
+echo "${GREEN}INFLUXDB: ${YELLOW}$INFLUXDBIP:8086${NC}"
+echo "${GREEN}MYSQL: ${YELLOW}$MYSQLIP:3306${NC}"
+echo "${GREEN}PHPMYADMIN: ${YELLOW}$PHPMYADMINIP:5000${NC}"
+echo "${GREEN}NGINX: ${YELLOW}$NGINXIP:80${NC}"
+echo "${GREEN}FTPS: ${YELLOW}$FTPSIP:21${NC}"
+echo "${GREEN}WORDPRESS: ${YELLOW}$WPIP:5050${NC}"
+echo "${GREEN}GRAFANA: ${YELLOW}$GRAFANAIP:3000${NC}"
