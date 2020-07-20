@@ -5,7 +5,7 @@ metadata:
   labels:
     app: mysql
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   selector:
     app: mysql
   ports:
@@ -31,6 +31,13 @@ spec:
       - name: mysql
         image: mymysql
         imagePullPolicy: Never
+        livenessProbe:
+          exec:
+            command:
+            - sh
+            - /livenesscheck.sh
+          initialDelaySeconds: 15
+          periodSeconds: 5
         volumeMounts:
           - mountPath: "/var/lib/mysql"
             name: mysql

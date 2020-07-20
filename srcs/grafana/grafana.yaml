@@ -31,3 +31,10 @@ spec:
       - name: grafana
         image: mygrafana
         imagePullPolicy: Never
+        livenessProbe:
+          exec:
+            command:
+            - sh
+            - /livenesscheck.sh
+          initialDelaySeconds: 15
+          periodSeconds: 5

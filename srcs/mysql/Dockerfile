@@ -5,15 +5,17 @@ RUN apk -U upgrade --no-cache \
 && apk add openrc --no-cache && mkdir -p /run/openrc/ && touch /run/openrc/softlevel \
 && apk add mysql mysql-client gcompat libc6-compat
 
-RUN wget https://dl.influxdata.com/telegraf/releases/telegraf-1.14.5_linux_amd64.tar.gz \
-&& tar xf telegraf-1.14.5_linux_amd64.tar.gz && rm telegraf-1.14.5_linux_amd64.tar.gz \
-&& cp -R /telegraf/etc/telegraf /etc
-COPY telegraf.conf /etc/telegraf/
+#telegraf
+COPY srcs/telegraf.tar.gz /
+RUN tar xf telegraf.tar.gz && rm telegraf.tar.gz \
+&& cp -R /telegraf/etc/telegraf /etc/
+COPY srcs/mysql/telegraf.conf /etc/telegraf/
+#mysql
+COPY srcs/mysql/my.cnf /etc/
+COPY srcs/mysql/setup.sql /
+COPY srcs/mysql/wp.sql /
+COPY srcs/mysql/phpmyadmin.sql /
 
-COPY setup.sql /
-COPY wp.sql /
-COPY phpmyadmin.sql /
-COPY my.cnf /etc/
-COPY start.sh /
-
+RUN echo "! rc-status -c && ps | grep telegraf | grep -v grep" > livenesscheck.sh
+COPY srcs/mysql/start.sh /
 ENTRYPOINT ["sh", "start.sh"]

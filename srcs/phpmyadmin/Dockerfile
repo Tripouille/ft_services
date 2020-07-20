@@ -8,16 +8,20 @@ RUN apk -U upgrade --no-cache \
 && apk add php7-xmlrpc php7-posix php7-mcrypt php7-gettext php7-ldap php7-ctype \
 && apk add phpmyadmin php-mbstring php-gettext gcompat libc6-compat
 
-RUN wget https://dl.influxdata.com/telegraf/releases/telegraf-1.14.5_linux_amd64.tar.gz \
-&& tar xf telegraf-1.14.5_linux_amd64.tar.gz && rm telegraf-1.14.5_linux_amd64.tar.gz \
-&& cp -R /telegraf/etc/telegraf /etc
-COPY telegraf.conf /etc/telegraf/
-
-COPY lighttpd.conf /etc/lighttpd/ 
+#telegraf
+COPY srcs/telegraf.tar.gz /
+RUN tar xf telegraf.tar.gz && rm telegraf.tar.gz \
+&& cp -R /telegraf/etc/telegraf /etc/
+COPY srcs/phpmyadmin/telegraf.conf /etc/telegraf/
+#lighttpd
+COPY srcs/phpmyadmin/lighttpd.conf /etc/lighttpd/ 
 RUN sed -i s/php-cgi/php-cgi7/ /etc/lighttpd/mod_fastcgi.conf
-COPY config.inc.php /usr/share/webapps/phpmyadmin
-COPY config.inc.php /etc/phpmyadmin/
+#phpmyadmin
+COPY srcs/phpmyadmin/config.inc.php /usr/share/webapps/phpmyadmin
+COPY srcs/phpmyadmin/config.inc.php /etc/phpmyadmin/
 RUN chmod -R 755 /usr/share/webapps/phpmyadmin
-COPY start.sh /
 
+RUN echo "! rc-status -c && ps | grep telegraf | grep -v grep" > livenesscheck.sh
+RUN echo "rc-update add lighttpd && openrc" > start.sh \
+&& echo "cd /telegraf/usr/bin/ && ./telegraf" >> start.sh
 ENTRYPOINT ["sh", "start.sh"]

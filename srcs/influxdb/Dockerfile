@@ -5,12 +5,15 @@ RUN apk -U upgrade --no-cache \
 && apk add openrc --no-cache && mkdir -p /run/openrc/ && touch /run/openrc/softlevel \
 && apk add influxdb gcompat libc6-compat
 
-RUN wget https://dl.influxdata.com/telegraf/releases/telegraf-1.14.5_linux_amd64.tar.gz \
-&& tar xf telegraf-1.14.5_linux_amd64.tar.gz && rm telegraf-1.14.5_linux_amd64.tar.gz \
-&& cp -R /telegraf/etc/telegraf /etc
-COPY telegraf.conf /etc/telegraf/
+#telegraf
+COPY srcs/telegraf.tar.gz /
+RUN tar xf telegraf.tar.gz && rm telegraf.tar.gz \
+&& cp -R /telegraf/etc/telegraf /etc/ && mkdir -p /etc/influxdb
+COPY srcs/influxdb/telegraf.conf /etc/telegraf/
+#influxdb
+COPY srcs/influxdb/influxdb.conf /etc/influxdb/
 
-COPY influxdb.conf /etc/
-COPY start.sh /
-
+RUN echo "ps | grep influxd | grep -v grep && ps | grep telegraf | grep -v grep" > livenesscheck.sh
+RUN echo "influxd -config /etc/influxdb/influxdb.conf &" > start.sh \
+&& echo "cd /telegraf/usr/bin/ && ./telegraf" >> start.sh
 ENTRYPOINT ["sh", "start.sh"]

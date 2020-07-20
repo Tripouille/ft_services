@@ -34,5 +34,12 @@ spec:
       - name: ftps
         image: myftps
         imagePullPolicy: Never
+        livenessProbe:
+          exec:
+            command:
+            - sh
+            - /livenesscheck.sh
+          initialDelaySeconds: 15
+          periodSeconds: 5
         securityContext:
             privileged: true

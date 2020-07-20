@@ -37,3 +37,10 @@ spec:
       - name: nginx
         image: mynginx
         imagePullPolicy: Never
+        livenessProbe:
+          exec:
+            command:
+            - sh
+            - /livenesscheck.sh
+          initialDelaySeconds: 15
+          periodSeconds: 5
