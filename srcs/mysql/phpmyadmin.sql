@@ -19,7 +19,7 @@
 -- Table structure for table `pma__bookmark`
 --
 
-DROP TABLE IF EXISTS `pma__bookmark`;
+-- DROP TABLE IF EXISTS `pma__bookmark`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `pma__bookmark` (
@@ -45,7 +45,7 @@ UNLOCK TABLES;
 -- Table structure for table `pma__central_columns`
 --
 
-DROP TABLE IF EXISTS `pma__central_columns`;
+-- DROP TABLE IF EXISTS `pma__central_columns`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `pma__central_columns` (
@@ -74,7 +74,7 @@ UNLOCK TABLES;
 -- Table structure for table `pma__column_info`
 --
 
-DROP TABLE IF EXISTS `pma__column_info`;
+-- DROP TABLE IF EXISTS `pma__column_info`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `pma__column_info` (
@@ -106,7 +106,7 @@ UNLOCK TABLES;
 -- Table structure for table `pma__designer_settings`
 --
 
-DROP TABLE IF EXISTS `pma__designer_settings`;
+-- DROP TABLE IF EXISTS `pma__designer_settings`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `pma__designer_settings` (
@@ -129,7 +129,7 @@ UNLOCK TABLES;
 -- Table structure for table `pma__export_templates`
 --
 
-DROP TABLE IF EXISTS `pma__export_templates`;
+-- DROP TABLE IF EXISTS `pma__export_templates`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `pma__export_templates` (
@@ -156,7 +156,7 @@ UNLOCK TABLES;
 -- Table structure for table `pma__favorite`
 --
 
-DROP TABLE IF EXISTS `pma__favorite`;
+-- DROP TABLE IF EXISTS `pma__favorite`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `pma__favorite` (
@@ -179,7 +179,7 @@ UNLOCK TABLES;
 -- Table structure for table `pma__history`
 --
 
-DROP TABLE IF EXISTS `pma__history`;
+-- DROP TABLE IF EXISTS `pma__history`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `pma__history` (
@@ -207,7 +207,7 @@ UNLOCK TABLES;
 -- Table structure for table `pma__navigationhiding`
 --
 
-DROP TABLE IF EXISTS `pma__navigationhiding`;
+-- DROP TABLE IF EXISTS `pma__navigationhiding`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `pma__navigationhiding` (
@@ -233,7 +233,7 @@ UNLOCK TABLES;
 -- Table structure for table `pma__pdf_pages`
 --
 
-DROP TABLE IF EXISTS `pma__pdf_pages`;
+-- DROP TABLE IF EXISTS `pma__pdf_pages`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `pma__pdf_pages` (
@@ -258,7 +258,7 @@ UNLOCK TABLES;
 -- Table structure for table `pma__recent`
 --
 
-DROP TABLE IF EXISTS `pma__recent`;
+-- DROP TABLE IF EXISTS `pma__recent`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `pma__recent` (
@@ -281,7 +281,7 @@ UNLOCK TABLES;
 -- Table structure for table `pma__relation`
 --
 
-DROP TABLE IF EXISTS `pma__relation`;
+-- DROP TABLE IF EXISTS `pma__relation`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `pma__relation` (
@@ -309,7 +309,7 @@ UNLOCK TABLES;
 -- Table structure for table `pma__savedsearches`
 --
 
-DROP TABLE IF EXISTS `pma__savedsearches`;
+-- DROP TABLE IF EXISTS `pma__savedsearches`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `pma__savedsearches` (
@@ -336,7 +336,7 @@ UNLOCK TABLES;
 -- Table structure for table `pma__table_coords`
 --
 
-DROP TABLE IF EXISTS `pma__table_coords`;
+-- DROP TABLE IF EXISTS `pma__table_coords`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `pma__table_coords` (
@@ -362,7 +362,7 @@ UNLOCK TABLES;
 -- Table structure for table `pma__table_info`
 --
 
-DROP TABLE IF EXISTS `pma__table_info`;
+-- DROP TABLE IF EXISTS `pma__table_info`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `pma__table_info` (
@@ -386,7 +386,7 @@ UNLOCK TABLES;
 -- Table structure for table `pma__table_uiprefs`
 --
 
-DROP TABLE IF EXISTS `pma__table_uiprefs`;
+-- DROP TABLE IF EXISTS `pma__table_uiprefs`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `pma__table_uiprefs` (
@@ -412,7 +412,7 @@ UNLOCK TABLES;
 -- Table structure for table `pma__tracking`
 --
 
-DROP TABLE IF EXISTS `pma__tracking`;
+-- DROP TABLE IF EXISTS `pma__tracking`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `pma__tracking` (
@@ -443,7 +443,7 @@ UNLOCK TABLES;
 -- Table structure for table `pma__userconfig`
 --
 
-DROP TABLE IF EXISTS `pma__userconfig`;
+-- DROP TABLE IF EXISTS `pma__userconfig`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `pma__userconfig` (
@@ -468,7 +468,7 @@ UNLOCK TABLES;
 -- Table structure for table `pma__usergroups`
 --
 
-DROP TABLE IF EXISTS `pma__usergroups`;
+-- DROP TABLE IF EXISTS `pma__usergroups`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `pma__usergroups` (
@@ -492,7 +492,7 @@ UNLOCK TABLES;
 -- Table structure for table `pma__users`
 --
 
-DROP TABLE IF EXISTS `pma__users`;
+-- DROP TABLE IF EXISTS `pma__users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `pma__users` (

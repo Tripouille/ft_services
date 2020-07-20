@@ -2,7 +2,7 @@
 define( 'DB_NAME', 'wp' );
 define( 'DB_USER', 'wp' );
 define( 'DB_PASSWORD', 'wp' );
-define( 'DB_HOST', '10.103.127.43' );
+define( 'DB_HOST', '10.106.216.50' );
 define( 'DB_CHARSET', 'utf8' );
 define( 'DB_COLLATE', '' );
 define( 'AUTH_KEY',         'mettez une phrase unique ici' );

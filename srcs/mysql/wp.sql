@@ -19,7 +19,7 @@
 -- Table structure for table `wp_commentmeta`
 --
 
-DROP TABLE IF EXISTS `wp_commentmeta`;
+-- DROP TABLE IF EXISTS `wp_commentmeta`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `wp_commentmeta` (
@@ -46,7 +46,7 @@ UNLOCK TABLES;
 -- Table structure for table `wp_comments`
 --
 
-DROP TABLE IF EXISTS `wp_comments`;
+-- DROP TABLE IF EXISTS `wp_comments`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `wp_comments` (
@@ -88,7 +88,7 @@ UNLOCK TABLES;
 -- Table structure for table `wp_links`
 --
 
-DROP TABLE IF EXISTS `wp_links`;
+-- DROP TABLE IF EXISTS `wp_links`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `wp_links` (
@@ -123,7 +123,7 @@ UNLOCK TABLES;
 -- Table structure for table `wp_options`
 --
 
-DROP TABLE IF EXISTS `wp_options`;
+-- DROP TABLE IF EXISTS `wp_options`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `wp_options` (
@@ -151,7 +151,7 @@ UNLOCK TABLES;
 -- Table structure for table `wp_postmeta`
 --
 
-DROP TABLE IF EXISTS `wp_postmeta`;
+-- DROP TABLE IF EXISTS `wp_postmeta`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `wp_postmeta` (
@@ -179,7 +179,7 @@ UNLOCK TABLES;
 -- Table structure for table `wp_posts`
 --
 
-DROP TABLE IF EXISTS `wp_posts`;
+-- DROP TABLE IF EXISTS `wp_posts`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `wp_posts` (
@@ -228,7 +228,7 @@ UNLOCK TABLES;
 -- Table structure for table `wp_term_relationships`
 --
 
-DROP TABLE IF EXISTS `wp_term_relationships`;
+-- DROP TABLE IF EXISTS `wp_term_relationships`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `wp_term_relationships` (
@@ -254,7 +254,7 @@ UNLOCK TABLES;
 -- Table structure for table `wp_term_taxonomy`
 --
 
-DROP TABLE IF EXISTS `wp_term_taxonomy`;
+-- DROP TABLE IF EXISTS `wp_term_taxonomy`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `wp_term_taxonomy` (
@@ -284,7 +284,7 @@ UNLOCK TABLES;
 -- Table structure for table `wp_termmeta`
 --
 
-DROP TABLE IF EXISTS `wp_termmeta`;
+-- DROP TABLE IF EXISTS `wp_termmeta`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `wp_termmeta` (
@@ -311,7 +311,7 @@ UNLOCK TABLES;
 -- Table structure for table `wp_terms`
 --
 
-DROP TABLE IF EXISTS `wp_terms`;
+-- DROP TABLE IF EXISTS `wp_terms`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `wp_terms` (
@@ -339,7 +339,7 @@ UNLOCK TABLES;
 -- Table structure for table `wp_usermeta`
 --
 
-DROP TABLE IF EXISTS `wp_usermeta`;
+-- DROP TABLE IF EXISTS `wp_usermeta`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `wp_usermeta` (
@@ -367,7 +367,7 @@ UNLOCK TABLES;
 -- Table structure for table `wp_users`
 --
 
-DROP TABLE IF EXISTS `wp_users`;
+-- DROP TABLE IF EXISTS `wp_users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `wp_users` (
